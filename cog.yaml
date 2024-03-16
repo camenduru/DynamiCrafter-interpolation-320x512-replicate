@@ -1,0 +1,11 @@
+build:
+  gpu: true
+  python_version: "3.10"
+  run:
+    - apt update -y && apt install -y software-properties-common python3-launchpadlib && apt update -y && add-apt-repository -y ppa:git-core/ppa && apt update -y && apt install -y aria2 git git-lfs wget libgl1 libglib2.0-0
+    - pip install xformers==0.0.25 notebook pyngrok packaging==23.1 diffusers==0.20.2 transformers==4.25.1 accelerate einops==0.3.0 omegaconf==2.1.1 opencv-python timm av
+    - pip install pytorch_lightning==1.8.3 kornia open-clip-torch==2.22.0 decord==0.6.0 imageio==2.9.0 numpy==1.24.2 opencv_python pandas==2.0.0 Pillow==9.5.0 
+    - pip install PyYAML==6.0 setuptools==65.6.3 tqdm==4.65.0 moviepy scikit-learn open_clip_torch==2.22.0
+    - GIT_LFS_SKIP_SMUDGE=1 git clone -b loop https://github.com/camenduru/DynamiCrafter /content/DynamiCrafter
+    - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/vdo/DynamiCrafter/resolve/main/model_interpolation_320_512.ckpt -d /content/DynamiCrafter/checkpoints/dynamicrafter_512_interp_v1 -o model.ckpt
+predict: "/src/predict.py:Predictor"
