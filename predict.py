@@ -25,7 +25,7 @@ class Predictor(BasePredictor):
         eta: float = Input(default=1.0),
         fs: int = Input(default=5),
         seed: int = Input(default=12306),
-    ) -> str:
+    ) -> Path:
         image1 = Image.open(image1_path)
         if image1.mode == 'RGBA':
             image1 = image1.convert('RGB')
